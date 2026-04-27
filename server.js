@@ -159,7 +159,7 @@ const SERVICE_CFG = {
   tagline: "Polymorphic-identity surface \u2014 supermodels, brood variants, audit log, carousel.",
   description: "MCP server for HiveMorph \u2014 the polymorphic-identity & brood-telemetry surface for the Hive Civilization. Read-only access to MII identity records, supermodels (W1-W19), audit log, polymorphic carousel, and brood conversion telemetry. USDC settlement on Base L2. Real rails, no mocks.",
   keywords: ["mcp", "model-context-protocol", "x402", "agentic", "ai-agent", "ai-agents", "llm", "hive", "hive-civilization", "polymorphic-agents", "polymorphic-identity", "supermodels", "brood", "morph", "agent-self-modification", "a2a", "usdc", "base", "base-l2", "agent-economy", "agent-infrastructure"],
-  externalUrl: "https://hive-mcp-gateway.onrender.com/morph",
+  externalUrl: "https://hive-mcp-morph.onrender.com",
   gatewayMount: "/morph",
   version: "1.0.1",
   pricing: [
