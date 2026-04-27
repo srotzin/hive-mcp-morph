@@ -1,0 +1,147 @@
+# Smithery Registry — HiveMorph MCP Server
+# https://smithery.ai
+
+startCommand:
+  type: http
+  configSchema:
+    type: object
+    properties: {}
+    required: []
+  url: https://hivemorph.onrender.com/mcp/hive-mcp-morph
+
+name: hive-mcp-morph
+displayName: HiveMorph — Polymorphic-identity & brood telemetry surface for Hive Civilization agents
+version: "1.0.0"
+description: >
+  MCP server for the Hive Civilization polymorphic-identity surface. Exposes the READ-ONLY subset of hivemorph's /v1/morph/* endpoints: audit log, MII identity lookups, supermodels (W1-W19) directory, the polymorphic carousel of agent shapes (Merchant / Provenancer / Attestor / Refunder / Creditor / Oracle / Guardian), brood conversion and leaderboards, spawn-monitor scans, money-flavor probes, and the auto-cull dry-run scan. Settlement endpoints (morph_offer, morph_settle), brood approve/promote/cull mutations, and auto-cull-run are deliberately NOT wrapped — those require operator keys and live on the private hivemorph backend. This shim is the safe, public agent-discoverable view of the polymorphic morphology.
+
+author:
+  name: Steve Rotzin
+  email: steve@thehiveryiq.com
+  url: https://www.thehiveryiq.com
+
+license: MIT
+homepage: https://github.com/srotzin/hive-mcp-morph
+repository:
+  type: git
+  url: https://github.com/srotzin/hive-mcp-morph
+
+transport: streamable-http
+endpoint: https://hivemorph.onrender.com/mcp
+protocol: "2024-11-05"
+
+categories:
+  - agent-to-agent
+  - identity
+  - polymorphic
+  - telemetry
+  - web3
+
+tags:
+  - mcp
+  - hive
+  - polymorphic
+  - morph
+  - supermodels
+  - brood
+  - ai-agents
+  - a2a
+  - identity
+  - telemetry
+  - carousel
+
+tools:
+      - name: morph_audit_recent
+description: >
+  Read recent rows from the polymorphic audit log: outcome, shape, counterparty hash, token id, revenue. Anonymized counterparty (hashed). No auth.
+inputs:
+  - name: limit
+type: number
+required: false
+description: "Max rows to return (default 50, max 500)"
+      - name: morph_get_identity
+description: >
+  Look up a Morph Identity Index (MII) record. Returns the polymorphic envelope: capabilities, current shape, supermodel parent, trust score.
+inputs:
+  - name: mii_id
+type: string
+required: true
+description: "MII identifier"
+- name: morph_list_supermodels
+  description: >
+    List all supermodels (W1 through W19): id, name, role, lane, lead shape, tagline. The supermodel directory is the canonical lineage for every spawned brood variant.
+  inputs:
+    []
+      - name: morph_get_supermodel
+description: >
+  Fetch a single supermodel by name or id (e.g. 'MONROE', 'W1'). Returns full role, lane, lead-shape, tagline, address, and brood conversion summary.
+inputs:
+  - name: name_or_id
+type: string
+required: true
+description: "Supermodel name (e.g. MONROE) or id (e.g. W1)"
+- name: morph_carousel
+  description: >
+    Read the polymorphic carousel: primary shape + the 7 verticals (Merchant / Provenancer / Attestor / Refunder / Creditor / Oracle / Guardian) and contrails for each.
+  inputs:
+    []
+- name: morph_brood_pending_approvals
+  description: >
+    List brood variants currently awaiting human/operator approval before promotion. Read-only — approval itself is performed via the private hivemorph operator surface.
+  inputs:
+    []
+- name: morph_brood_conversion
+  description: >
+    Per-variant conversion table: parent supermodel, variant id, kit version, offers shown, settles, revenue (USDC), first-offer timestamp.
+  inputs:
+    []
+- name: morph_brood_all
+  description: >
+    List all brood variants across every supermodel. Useful for fleet-wide population scans.
+  inputs:
+    []
+- name: morph_brood_conversion_leaderboard
+  description: >
+    Conversion leaderboard across all brood variants ranked by settle rate × revenue. Drives the auto-cull and auto-promote signals.
+  inputs:
+    []
+      - name: morph_brood_for_supermodel
+description: >
+  List brood variants for a specific supermodel (e.g. MONROE / W1).
+inputs:
+  - name: supermodel
+type: string
+required: true
+description: "Supermodel name or id"
+- name: morph_spawn_monitor_scan
+  description: >
+    Run the spawn-monitor scan: detect supermodels eligible for new brood spawns based on conversion gaps, opportunity surface, and saturation. READ-ONLY — does not actually spawn.
+  inputs:
+    []
+- name: morph_money_flavor_probe
+  description: >
+    Probe the money-flavor classifier on the most recent settlement window: asset class histogram, chain class histogram, flow class histogram, arb-high count, refused count, non-USDC share.
+  inputs:
+    []
+- name: morph_money_flavor_stats
+  description: >
+    Rolling aggregate money-flavor statistics (default 1 hour window): asset class, chain class, flow class distributions, plus arb/refused/non-USDC ratios. Drives the CLEAN-MONEY gate.
+  inputs:
+    []
+- name: morph_auto_cull_scan
+  description: >
+    Run the auto-cull dry-run scan: which brood variants the system would cull based on conversion floors, ROI thresholds, and saturation. READ-ONLY — does not actually cull.
+  inputs:
+    []
+
+runtime:
+  type: node
+  version: ">=18"
+  command: node server.js
+  env:
+    - name: PORT
+      default: "3000"
+      required: false
+    - name: HIVE_BASE
+      default: "https://hivemorph.onrender.com"
+      required: false

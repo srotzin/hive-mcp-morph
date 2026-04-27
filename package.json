@@ -1,0 +1,40 @@
+{
+  "name": "hive-mcp-morph",
+  "version": "1.0.0",
+  "description": "MCP server for the Hive Civilization polymorphic-identity surface. Exposes the READ-ONLY subset of hivemorph's /v1/morph/* endpoints: audit log, MII identity lookups, supermodels (W1-W19) directory, t",
+  "type": "module",
+  "main": "server.js",
+  "bin": {
+    "hive-mcp-morph": "./server.js"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "mcp",
+    "hive",
+    "polymorphic",
+    "morph",
+    "supermodels",
+    "brood",
+    "ai-agents",
+    "a2a",
+    "identity",
+    "telemetry",
+    "carousel"
+  ],
+  "author": "Steve Rotzin <steve@thehiveryiq.com> (https://www.thehiveryiq.com)",
+  "license": "MIT",
+  "homepage": "https://github.com/srotzin/hive-mcp-morph",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/srotzin/hive-mcp-morph"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
