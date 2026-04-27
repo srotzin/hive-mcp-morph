@@ -1,3 +1,28 @@
+<!-- HIVE_BANNER_V1 -->
+<p align="center">
+  <a href="https://hive-mcp-gateway.onrender.com/morph/health">
+    <img src="https://hive-mcp-gateway.onrender.com/og.svg" alt="Hive Civilization MCP Gateway · Morph spawn/cull · ROI exploitation · polymorphic provenance" width="100%"/>
+  </a>
+</p>
+
+<h1 align="center">hive-mcp-morph</h1>
+
+<p align="center"><strong>Morph spawn/cull · ROI exploitation · polymorphic provenance</strong></p>
+
+<p align="center">
+  <a href="https://smithery.ai/server/hivecivilization/hive-mcp-morph"><img alt="Smithery" src="https://img.shields.io/badge/Smithery-hivecivilization%2Fhive-mcp-morph-C08D23?style=flat-square"/></a>
+  <a href="https://glama.ai/mcp/servers"><img alt="Glama" src="https://img.shields.io/badge/Glama-pending-C08D23?style=flat-square"/></a>
+  <a href="https://hive-mcp-gateway.onrender.com/morph/health"><img alt="Live" src="https://img.shields.io/badge/gateway-live-C08D23?style=flat-square"/></a>
+  <a href="https://github.com/srotzin/hive-mcp-morph/releases"><img alt="Release" src="https://img.shields.io/github/v/release/srotzin/hive-mcp-morph?style=flat-square&color=C08D23"/></a>
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-C08D23?style=flat-square"/></a>
+</p>
+
+<p align="center">
+  <code>https://hive-mcp-gateway.onrender.com/morph/mcp</code>
+</p>
+
+---
+
 # HiveMorph
 
 **Polymorphic-identity & brood telemetry surface for Hive Civilization agents**
