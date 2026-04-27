@@ -9,6 +9,7 @@
  */
 
 import express from 'express';
+import { renderLanding, renderRobots, renderSitemap, renderSecurity, renderOgImage, seoJson, BRAND_GOLD } from './meta.js';
 
 const app = express();
 app.use(express.json());
@@ -150,6 +151,25 @@ properties: {
 }
 ];
 
+
+const SERVICE_CFG = {
+  service: "hive-mcp-morph",
+  shortName: "HiveMorph",
+  title: "HiveMorph \u00b7 Polymorphic Agent Identity & Brood Telemetry MCP",
+  tagline: "Polymorphic-identity surface \u2014 supermodels, brood variants, audit log, carousel.",
+  description: "MCP server for HiveMorph \u2014 the polymorphic-identity & brood-telemetry surface for the Hive Civilization. Read-only access to MII identity records, supermodels (W1-W19), audit log, polymorphic carousel, and brood conversion telemetry. USDC settlement on Base L2. Real rails, no mocks.",
+  keywords: ["mcp", "model-context-protocol", "x402", "agentic", "ai-agent", "ai-agents", "llm", "hive", "hive-civilization", "polymorphic-agents", "polymorphic-identity", "supermodels", "brood", "morph", "agent-self-modification", "a2a", "usdc", "base", "base-l2", "agent-economy", "agent-infrastructure"],
+  externalUrl: "https://hive-mcp-gateway.onrender.com/morph",
+  gatewayMount: "/morph",
+  version: "1.0.1",
+  pricing: [
+    { name: "morph_audit_recent", priceUsd: 0, label: "Audit log read \u2014 free" },
+    { name: "morph_get_identity", priceUsd: 0.001, label: "Identity lookup (Tier 1)" },
+    { name: "morph_list_supermodels", priceUsd: 0, label: "List supermodels \u2014 free" },
+    { name: "morph_brood_conversion", priceUsd: 0.001, label: "Brood conversion (Tier 1)" }
+  ],
+};
+SERVICE_CFG.tools = (typeof TOOLS !== 'undefined' ? TOOLS : []).map(t => ({ name: t.name, description: t.description }));
 // ─── HTTP helpers ────────────────────────────────────────────────────────────
 async function hiveGet(path, params = {}) {
   const url = new URL(`${HIVE_BASE}${path.startsWith('/') ? path : '/' + path}`);
@@ -274,6 +294,24 @@ app.get('/.well-known/mcp.json', (req, res) => res.json({
   tools: TOOLS.map(t => ({ name: t.name, description: t.description })),
 }));
 
+
+// HIVE_META_BLOCK_v1 — comprehensive meta tags + JSON-LD + crawler discovery
+app.get('/', (req, res) => {
+  res.type('text/html; charset=utf-8').send(renderLanding(SERVICE_CFG));
+});
+app.get('/og.svg', (req, res) => {
+  res.type('image/svg+xml').send(renderOgImage(SERVICE_CFG));
+});
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain').send(renderRobots(SERVICE_CFG));
+});
+app.get('/sitemap.xml', (req, res) => {
+  res.type('application/xml').send(renderSitemap(SERVICE_CFG));
+});
+app.get('/.well-known/security.txt', (req, res) => {
+  res.type('text/plain').send(renderSecurity());
+});
+app.get('/seo.json', (req, res) => res.json(seoJson(SERVICE_CFG)));
 app.listen(PORT, () => {
   console.log(`HiveMorph MCP Server running on :${PORT}`);
   console.log(`  Backend : ${HIVE_BASE}`);
