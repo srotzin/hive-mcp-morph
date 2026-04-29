@@ -40,7 +40,7 @@ properties: {
       },
     },{
   name: 'morph_list_supermodels',
-  description: 'List all supermodels (W1 through W19): id, name, role, lane, lead shape, tagline. The supermodel directory is the canonical lineage for every spawned brood variant.',
+  description: 'List all supermodels (W1 through W19): id, name, role, lane, lead shape, tagline. The supermodel directory is the canonical lineage for every spawned brood variant. Free up to 100 calls/day per agent-DID; $0.001/call thereafter via x402 USDC settlement on Base.',
   inputSchema: {
     type: 'object',
     properties: {
